@@ -1,0 +1,30 @@
+services:
+  mbymongo:
+    container_name: mbymongo
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mby-volume:/data/db
+    networks:
+      - mby-network
+  mbyapp:
+    container_name: mbyapp
+    image: bimayudha/first-docker:latest
+    environment:
+      - MESSAGE=Hello from Docker
+      - MONGO_HOST=mbymongo
+      - MONGO_PORT=27017
+      - MONGO_DB=mby444
+    depends_on:
+      - mbymongo
+    networks:
+      - mby-network
+
+networks:
+  mby-network:
+    name: mby-network
+
+volumes:
+  mby-volume:
+    name: mby-volume
