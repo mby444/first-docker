@@ -8,9 +8,9 @@ services:
       - mby-volume:/data/db
     networks:
       - mby-network
-  mbyapp:
-    container_name: mbyapp
-    image: bimayudha/first-docker:latest
+  mbyapp-dev:
+    container_name: mbyapp-dev
+    image: bimayudha/first-docker:dev
     ports:
       - "5000:5000"
     environment:
@@ -20,8 +20,26 @@ services:
       - MONGO_DB=mby444
     depends_on:
       - mbymongo
+    volumes:
+      - .:/usr/src/app
     networks:
       - mby-network
+  # mbyapp:
+  #   container_name: mbyapp
+  #   image: bimayudha/first-docker:latest
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     - MESSAGE=Hello from Docker
+  #     - MONGO_HOST=mbymongo
+  #     - MONGO_PORT=27017
+  #     - MONGO_DB=mby444
+  #   depends_on:
+  #     - mbymongo
+  #   volumes:
+  #     - .:/usr/src/app
+  #   networks:
+  #     - mby-network
 
 networks:
   mby-network:

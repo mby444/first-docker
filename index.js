@@ -5,9 +5,13 @@ import Users from "./database/models/Users.js";
 
 const app = express();
 
+app.set("view engine", "ejs");
+app.set("views", "./views");
+
 app.get("/", async (req, res) => {
   const users = await Users.find({});
-  res.json({ message: MESSAGE, users });
+  // res.json({ message: MESSAGE, users });
+  res.render("index", { message: MESSAGE });
 });
 
 connectDB(() => {
